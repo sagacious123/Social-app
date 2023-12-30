@@ -1,0 +1,474 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "./variables.scss";
+
+button {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  border: none;
+  outline: none;
+  overflow: hidden;
+  border-width: 2px;
+  border-style: solid;
+  position: relative;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+button a {
+  font-size: 14px;
+  font-weight: 600 !important;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a.primary-btn,
+a.secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+//Primary input
+.primary-input,
+.primary-select {
+  border: 1px solid var(--grey-300) !important;
+  height: 100% !important;
+  padding: 10px 14px;
+  border-radius: 8px !important;
+  -webkit-border-radius: 8px !important;
+  -moz-border-radius: 8px !important;
+  -ms-border-radius: 8px !important;
+  -o-border-radius: 8px !important;
+}
+
+.primary-input:disabled,
+.primary-select:disabled {
+  background: var(--grey-50) !important;
+  color: var(--grey-500) !important;
+  border-color: var(--grey-300) !important;
+  opacity: unset !important;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  cursor: not-allowed;
+}
+
+.primary-input:focus,
+.primary-select:focus {
+  border-color: var(--primary-600) !important;
+  box-shadow: 0px 0px 0px 4px rgba(244, 235, 255, 1),
+    0px 1px 2px 0px rgba(16, 24, 40, 0.05) !important;
+}
+
+.css-lcw54a[aria-invalid="true"],
+.css-lcw54a[data-invalid],
+.css-1aoy5ht[aria-invalid="true"],
+.css-1aoy5ht[data-invalid],
+.primary-input[aria-invalid="true"],
+.primary-input[data-invalid],
+.primary-select[aria-invalid="true"],
+.primary-select[data-invalid],
+.PhoneInput .PhoneInputInput[aria-invalid="true"],
+.PhoneInput .PhoneInputInput[data-invalid],
+.PhoneInput .PhoneInputInput:invalid {
+  border-color: var(--error-300) !important;
+}
+
+.css-lcw54a[aria-invalid="true"]:focus,
+.css-lcw54a[data-invalid]:focus,
+.css-1aoy5ht[aria-invalid="true"]:focus,
+.css-1aoy5ht[data-invalid]:focus,
+.primary-input[aria-invalid="true"]:focus,
+.primary-input[data-invalid]:focus,
+.primary-select[aria-invalid="true"]:focus,
+.primary-select[data-invalid]:focus {
+  border-color: var(--error-300) !important;
+  box-shadow: 0px 0px 0px 4px rgba(254, 228, 226, 1) !important;
+}
+
+.css-42b2qy {
+  height: 100% !important;
+}
+
+// .primary-input:invalid {
+//   border-color: var(--error-300) !important;
+//   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05) !important;
+// }
+
+.primary-input-addon {
+  height: 100% !important;
+  background-color: transparent !important;
+  border: 1px solid var(--grey-300) !important;
+  color: var(--grey-500) !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+
+  select {
+    border: none !important;
+    width: 100%;
+    height: 100%;
+    background-position-x: 99%;
+    background-position-y: 50%;
+    padding: 10px 3px !important;
+  }
+}
+
+.primary-input-component {
+  position: absolute !important;
+  top: 50% !important;
+  display: inline-block;
+  // left: 9px !important;
+  // height: 100% !important;
+  margin: 0 4px;
+  transform: translateY(-50%) !important;
+  -webkit-transform: translateY(-50%) !important;
+  -moz-transform: translateY(-50%) !important;
+  -ms-transform: translateY(-50%) !important;
+  -o-transform: translateY(-50%) !important;
+
+  select {
+    border: none !important;
+    width: 60px;
+    height: 100%;
+    background-color: transparent;
+    background-position-x: 99%;
+    background-position-y: 50%;
+    padding: 10px 3px !important;
+  }
+
+  svg,
+  img {
+    height: auto;
+    width: 24px;
+  }
+}
+
+.input-error-icon {
+  position: absolute !important;
+  top: 50% !important;
+  margin: 0 4px;
+  transform: translateY(-50%) !important;
+
+  svg,
+  img {
+    height: 15px;
+    width: 15px;
+  }
+}
+
+.password-input-icon {
+  padding: 0 !important;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 9px;
+}
+
+.disabled-input {
+  background: var(--grey-50) !important;
+  color: var(--grey-500) !important;
+  cursor: not-allowed;
+}
+
+.PhoneInput {
+  border: none !important;
+  padding-inline-start: 0 !important;
+  padding-inline-end: 0 !important;
+
+  .PhoneInputCountry {
+    height: 100% !important;
+    background-color: transparent !important;
+    border: 1px solid var(--grey-300) !important;
+    border-right: none !important;
+    color: var(--grey-500) !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    margin: 0 !important;
+    padding: 0 16px;
+    border-radius: 8px !important;
+    -webkit-border-radius: 8px !important;
+    -moz-border-radius: 8px !important;
+    -ms-border-radius: 8px !important;
+    -o-border-radius: 8px !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  select {
+    border: none !important;
+    width: 100%;
+    height: 100%;
+    background-position-x: 99%;
+    background-position-y: 50%;
+    padding: 10px 12px 10px 6px !important;
+  }
+  .PhoneInputInput {
+    border: 1px solid var(--grey-300) !important;
+    height: 100% !important;
+    padding: 10px 14px;
+    border-radius: 8px !important;
+    -webkit-border-radius: 8px !important;
+    -moz-border-radius: 8px !important;
+    -ms-border-radius: 8px !important;
+    -o-border-radius: 8px !important;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+}
+//Button sizes
+.btn-lg {
+  width: auto;
+  // height: 48px !important;
+  height: unset !important;
+  padding: 12px 20px !important;
+}
+
+.btn-md {
+  width: auto;
+  // height: 40px !important;
+  height: unset !important;
+  padding: 10px 16px !important;
+}
+
+.btn-sm {
+  width: auto;
+  // height: 36px !important;
+  height: unset !important;
+  padding: 8px 14px !important;
+}
+
+.btn-xs {
+  width: auto;
+  // height: 30px !important;
+  height: unset !important;
+  padding: 5px 14px !important;
+}
+
+//Primary button
+.primary-btn {
+  background: var(--primary-500) !important;
+  color: var(--white) !important;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--primary-500) !important;
+  border-radius: 8px !important;
+  -webkit-border-radius: 8px !important;
+  -moz-border-radius: 8px !important;
+  -ms-border-radius: 8px !important;
+  -o-border-radius: 8px !important;
+}
+
+.btn-outline-primary {
+  background: transparent !important;
+  border: var(--primary-500) 2px solid !important;
+  color: var(--primary-500) !important;
+}
+
+.primary-btn:hover:not(.rounded-pill) {
+  background: var(--primary-800) !important;
+  border-color: var(--primary-800) !important;
+  color: var(--white) !important;
+}
+
+.primary-btn:focus:not(.rounded-pill) {
+  background: var(--primary-500) !important;
+  border-color: var(--primary-500) !important;
+  color: var(--white) !important;
+  box-shadow: 0px 0px 0px 4px rgba(244, 235, 255, 1),
+    0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+
+.primary-btn:disabled {
+  background: var(--primary-100) !important;
+  color: var(--white) !important;
+  border-color: var(--primary-100) !important;
+  opacity: unset !important;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  cursor: default !important;
+  // opacity: 0.4 !important;
+}
+
+.primary-btn:disabled:hover {
+  color: var(--white) !important;
+  background: var(--primary-100) !important;
+  border-color: var(--primary-100) !important;
+  // opacity: 0.4 !important;
+}
+
+.primary-btn a {
+  color: var(--white) !important;
+  text-decoration: none !important;
+}
+
+//Secondary button
+.secondary-btn {
+  background: var(--primary-50) !important;
+  color: var(--primary-800) !important;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--primary-50) !important;
+  border-radius: 8px !important;
+  -webkit-border-radius: 8px !important;
+  -moz-border-radius: 8px !important;
+  -ms-border-radius: 8px !important;
+  -o-border-radius: 8px !important;
+}
+
+.secondary-btn:hover {
+  background: var(--primary-100) !important;
+  border-color: var(--primary-100) !important;
+  color: var(--primary-800) !important;
+}
+
+.secondary-btn:focus:not(.rounded-pill) {
+  background: var(--primary-50) !important;
+  border-color: var(--primary-50) !important;
+  color: var(--primary-800) !important;
+  box-shadow: 0px 0px 0px 4px rgba(244, 235, 255, 1),
+    0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+
+.secondary-btn:disabled {
+  background: var(--primary-25) !important;
+  color: var(--primary-300) !important;
+  border-color: var(--primary-25) !important;
+  opacity: unset !important;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  cursor: default;
+}
+.secondary-btn:disabled:hover {
+  background: var(--primary-25) !important;
+  color: var(--primary-300) !important;
+  border-color: var(--primary-25) !important;
+  cursor: default;
+}
+
+.secondary-btn a {
+  color: var(--primary-800) !important;
+  text-decoration: none !important;
+}
+
+//Primary error button
+.primary-error-btn {
+  background: var(--error-600) !important;
+  color: var(--white) !important;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--error-600) !important;
+  border-radius: 8px !important;
+  -webkit-border-radius: 8px !important;
+  -moz-border-radius: 8px !important;
+  -ms-border-radius: 8px !important;
+  -o-border-radius: 8px !important;
+}
+
+.primary-error-btn:hover {
+  background: var(--warning-700) !important;
+  border-color: var(--warning-700) !important;
+  color: var(--white) !important;
+}
+
+.primary-error-btn:focus {
+  background: var(--error-600) !important;
+  border-color: var(--error-600) !important;
+  color: var(--white) !important;
+  box-shadow: 0px 0px 0px 4px rgba(244, 235, 255, 1),
+    0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+
+.primary-error-btn:disabled {
+  background: var(--error-200) !important;
+  border-color: var(--error-200) !important;
+  color: var(--white) !important;
+  opacity: unset !important;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  cursor: default;
+}
+.primary-error-btn:disabled:hover {
+  background: var(--error-200) !important;
+  border-color: var(--error-200) !important;
+  color: var(--white) !important;
+  cursor: default;
+}
+
+.primary-error-btn a {
+  color: var(--white) !important;
+  text-decoration: none !important;
+}
+
+//Secondary error button
+.secondary-error-btn {
+  background: var(--error-50) !important;
+  color: var(--warning-700) !important;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--error-50) !important;
+  border-radius: 8px !important;
+  -webkit-border-radius: 8px !important;
+  -moz-border-radius: 8px !important;
+  -ms-border-radius: 8px !important;
+  -o-border-radius: 8px !important;
+}
+
+.secondary-error-btn:hover {
+  background: var(--error-100) !important;
+  border-color: var(--error-100) !important;
+  color: var(--warning-700) !important;
+}
+
+.secondary-error-btn:focus {
+  background: var(--error-50) !important;
+  border-color: var(--error-50) !important;
+  color: var(--warning-700) !important;
+  box-shadow: 0px 0px 0px 4px rgba(254, 228, 226, 1),
+    0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
+
+.secondary-error-btn:disabled {
+  background: var(--error-25) !important;
+  border-color: var(--error-25) !important;
+  color: var(--error-300) !important;
+  opacity: unset !important;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  cursor: default;
+}
+.secondary-error-btn:disabled:hover {
+  background: var(--error-25) !important;
+  border-color: var(--error-25) !important;
+  color: var(--error-300) !important;
+  cursor: default;
+}
+
+.secondary-error-btn a {
+  color: var(--warning-700) !important;
+  text-decoration: none !important;
+}
+
+.primary-color {
+  color: var(--primary-500) !important;
+}
+.primary-bg {
+  background-color: var(--primary-500) !important;
+}
+.border-w-1 {
+  border-width: 1px !important;
+}
+.text-danger {
+  color: var(--error-600) !important;
+}
+
+.border-default {
+  border: 1px solid var(--grey-300) !important;
+}
+.object-fit-cover {
+  object-fit: cover;
+}
