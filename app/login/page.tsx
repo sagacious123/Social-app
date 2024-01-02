@@ -108,12 +108,14 @@ const Login = () => {
     if (typeof window !== "undefined") {
       localStorage.setItem("user", JSON.stringify(data.data));
     }
-    setUser(data.data);
-    if (data.data?.role) {
-      if (data.data?.role === "user") {
-        router.push(`/user/${data?.data?.email}`);
-      } else {
-        router.push("/admin");
+    if (data.success) {
+      setUser(data.data);
+      if (data.data?.role) {
+        if (data.data?.role === "user") {
+          router.push(`/user/${data?.data?.email}`);
+        } else {
+          router.push("/admin");
+        }
       }
     }
   }
