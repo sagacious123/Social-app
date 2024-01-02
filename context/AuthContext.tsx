@@ -4,19 +4,20 @@ import React, { FC, ReactNode } from "react";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
 import { app } from "@/utils/firebaseConfig";
 import Spinner from "@/components/Spinner";
+import { usePageNotificationProvider } from "@/providers/notificationProvider";
 
 interface AuthContextProps {
-  user: any;
+  userSession: any;
+  setUserSession: any;
 }
 
 interface AuthContextProviderProps {
   children: ReactNode;
 }
 
-const auth = getAuth(app);
-
 const initialValues = {
-  user: {},
+  userSession: {},
+  setUserSession: () => {},
 };
 
 export const AuthContext = React.createContext<AuthContextProps>(initialValues);
@@ -26,24 +27,18 @@ export const useAuthContext = () => React.useContext(AuthContext);
 export const AuthContextProvider: FC<AuthContextProviderProps> = ({
   children,
 }) => {
-  const [user, setUser] = React.useState<any>(null);
-  const [loading, setLoading] = React.useState(true);
+  const [userSession, setUserSession] = React.useState<any>(
+    window.localStorage.getItem("access_token") || ""
+  );
+  const [loading, setLoading] = React.useState(false);
+  const { initNotification } = usePageNotificationProvider();
 
   React.useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUser(user);
-      } else {
-        setUser(null);
-      }
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
+    setUserSession(window.localStorage.getItem("access_token"));
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user }}>
+    <AuthContext.Provider value={{ userSession, setUserSession }}>
       {loading ? <Spinner /> : children}
     </AuthContext.Provider>
   );

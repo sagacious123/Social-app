@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -9,12 +9,14 @@ import { auth } from "../../utils/firebaseConfig";
 import { PrimaryButton } from "../../components/Button";
 import { usePageNotificationProvider } from "../../providers/notificationProvider";
 import signIn, { roles } from "@/utils/auth/login";
+import { useAuthContext } from "@/context/AuthContext";
 
 const Login = () => {
   const router = useRouter();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { initNotification } = usePageNotificationProvider();
+  const { setUserSession } = useAuthContext();
 
   const formik = useFormik({
     initialValues: {
@@ -25,28 +27,89 @@ const Login = () => {
       email: Yup.string().email("Invalid email address").required("Required"),
       password: Yup.string().required("Required"),
     }),
-    onSubmit: async (values) => {
-      setLoading(true);
+    onSubmit: async () => handleLogin(),
+    //   setLoading(true);
 
-      const { result, error } = await signIn(values.email, values.password);
+    //   const { result, error } = await signIn(values.email, values.password);
 
-      if (error) {
-        setLoading(false);
-        initNotification({
-          message: "Invalid email or password",
-          scheme: "error",
-        });
-        return console.log(error);
-      }
-      setLoading(false);
-      console.log(result);
-      if (result?.user.email === roles.admin) {
-        router.push("/admin");
-      } else {
-        router.push(`/user/${result?.user.email}`);
-      }
-    },
+    //   if (error) {
+    //     setLoading(false);
+    //     initNotification({
+    //       message: "Invalid email or password",
+    //       scheme: "error",
+    //     });
+    //     return console.log(error);
+    //   }
+    //   setLoading(false);
+    //   console.log(result);
+    //   if (result?.user.email === roles.admin) {
+    //     router.push("/admin");
+    //   } else {
+    //     router.push(`/user/${result?.user.email}`);
+    //   }
+    // },
   });
+
+  async function handleLogin() {
+    setLoading(true);
+
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...formik.values,
+      }),
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      initNotification({
+        message: data.message,
+        scheme: "success",
+      });
+      handleGetUser(data.data.user.email);
+      setUserSession(data.data.user.accessToken);
+      localStorage.setItem(
+        "access_token",
+        data.data.user.stsTokenManager.accessToken
+      );
+      setLoading(false);
+      return;
+    }
+    initNotification({
+      message: data.message,
+      scheme: "error",
+    });
+    setLoading(false);
+
+    // if (data && data.success) {
+    //   formik.setValues({
+    //     email: "",
+    //     password: "",
+    //   });
+    // }
+  }
+
+  async function handleGetUser(email: any) {
+    const res = await fetch(`/api/user/getUserByEmail/?email=${email}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await res.json();
+    localStorage.setItem("user", JSON.stringify(data.data));
+    if (data.data?.role) {
+      if (data.data?.role === "user") {
+        router.push(`/user/${data?.data?.email}`);
+      } else {
+        router.push("/admin");
+      }
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">

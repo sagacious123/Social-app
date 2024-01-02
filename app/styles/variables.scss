@@ -208,24 +208,10 @@
   }
 }
 
-//Dynamic Responsive Widths in Percentage
-@for $i from 0 through 100 {
-  .w-#{$i} {
-    width: unquote("#{$i}%");
-  }
-}
-
 //Dynamic Widths in px
 @for $i from 0 through 2000 {
   .w-#{$i}-px {
     width: #{$i}px;
-  }
-}
-
-//Dynamic Heights in px
-@for $i from 0 through 2000 {
-  .h-#{$i}-px {
-    height: #{$i}px;
   }
 }
 
