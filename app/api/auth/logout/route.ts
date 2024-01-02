@@ -1,9 +1,6 @@
 import { auth } from "@/utils/firebaseConfig";
-import { signInWithEmailAndPassword, signOut } from "firebase/auth";
-import prisma from "@/database";
+import { signOut } from "firebase/auth";
 import { NextRequest, NextResponse } from "next/server";
-import { cookies, headers } from "next/headers";
-import { customInitApp } from "@/utils/firebaseAdminConfig";
 
 export async function POST(request: NextRequest) {
   //   const authorization = headers().get("Authorization");

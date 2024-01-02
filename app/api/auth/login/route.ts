@@ -1,9 +1,6 @@
 import { auth } from "@/utils/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import prisma from "@/database";
 import { NextRequest, NextResponse } from "next/server";
-import { cookies, headers } from "next/headers";
-import { customInitApp } from "@/utils/firebaseAdminConfig";
 
 export async function POST(request: NextRequest) {
   //   const authorization = headers().get("Authorization");
@@ -16,7 +13,6 @@ export async function POST(request: NextRequest) {
       data.password
     );
     const { uid } = userCredential.user;
-
 
     if (userCredential) {
       return NextResponse.json({
