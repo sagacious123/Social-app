@@ -7,7 +7,7 @@ import React from "react";
 const Success: React.FC = () => {
   const router = useRouter();
   const handleNavigateHome = () => {
-    router.push("/"); // Redirect to the login page
+    router.push("/");
   };
 
   return (

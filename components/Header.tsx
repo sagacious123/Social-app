@@ -17,13 +17,17 @@ const Header: React.FC = () => {
     router.push("/login");
   };
 
-  const session = userSession ?? localStorage.getItem("access_token");
+  const session =
+    userSession ??
+    (typeof window !== "undefined" && localStorage.getItem("access_token"));
 
   async function handleLogout() {
     setLoading(true);
 
     setUserSession("");
-    localStorage.clear();
+    if (typeof window !== "undefined") {
+      localStorage.clear();
+    }
     // window.location.reload();
     setLoading(false);
   }

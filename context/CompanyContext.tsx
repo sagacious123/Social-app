@@ -35,12 +35,15 @@ export const CompanyContextProvider: FC<CompanyContextProviderProps> = ({
 }) => {
   const { id } = useParams();
   const [user, setUser] = React.useState<any>(
-    JSON.parse(localStorage.getItem("user")!) || {}
+    (typeof window !== "undefined" &&
+      JSON.parse(localStorage.getItem("user")!)) ||
+      {}
   );
   const [company, setCompany] = React.useState<any>({});
   const [allCompanies, setAllCompanies] = React.useState([]);
   const [token, setToken] = React.useState<any>(
-    localStorage.getItem("access_token") || ""
+    (typeof window !== "undefined" && localStorage.getItem("access_token")) ||
+      ""
   );
   const [loading, setLoading] = React.useState(false);
   const { initNotification } = usePageNotificationProvider();

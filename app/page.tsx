@@ -11,7 +11,9 @@ const Home = () => {
   const { user } = useUserContext();
   const router = useRouter();
 
-  const session = userSession ?? localStorage.getItem("access_token");
+  const session =
+    userSession ??
+    (typeof window !== "undefined" && localStorage.getItem("access_token"));
 
   const handleNavigateToLogin = () => {
     router.push("/login");

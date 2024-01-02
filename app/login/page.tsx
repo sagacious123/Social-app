@@ -71,10 +71,12 @@ const Login = () => {
       });
       handleGetUser(data.data.user.email);
       setUserSession(data.data.user.accessToken);
-      localStorage.setItem(
-        "access_token",
-        data.data.user.stsTokenManager.accessToken
-      );
+      if (typeof window !== "undefined") {
+        localStorage.setItem(
+          "access_token",
+          data.data.user.stsTokenManager.accessToken
+        );
+      }
       setLoading(false);
       return;
     }
@@ -101,12 +103,14 @@ const Login = () => {
     });
 
     const data = await res.json();
-    localStorage.setItem("user", JSON.stringify(data.data));
-    if (data.data?.role) {
-      if (data.data?.role === "user") {
-        router.push(`/user/${data?.data?.email}`);
-      } else {
-        router.push("/admin");
+    if (typeof window !== "undefined") {
+      localStorage.setItem("user", JSON.stringify(data.data));
+      if (data.data?.role) {
+        if (data.data?.role === "user") {
+          router.push(`/user/${data?.data?.email}`);
+        } else {
+          router.push("/admin");
+        }
       }
     }
   }
