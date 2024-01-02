@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
       success: false,
-      message: "Something went wrong! Please try again",
+      message: e,
     });
   }
 }
