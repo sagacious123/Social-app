@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
 
     const userDetails = await prisma.user.findUnique({
       where: {
-        email: email!,
+        email: decodeURIComponent(email!),
       },
       include: {
         companies: true,
