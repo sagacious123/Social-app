@@ -10,6 +10,7 @@ import { PrimaryButton } from "../../components/Button";
 import { usePageNotificationProvider } from "../../providers/notificationProvider";
 import signIn, { roles } from "@/utils/auth/login";
 import { useAuthContext } from "@/context/AuthContext";
+import { useUserContext } from "@/context/UserContext";
 
 const Login = () => {
   const router = useRouter();
@@ -17,6 +18,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const { initNotification } = usePageNotificationProvider();
   const { setUserSession } = useAuthContext();
+  const { setUser } = useUserContext();
 
   const formik = useFormik({
     initialValues: {
@@ -105,12 +107,13 @@ const Login = () => {
     const data = await res.json();
     if (typeof window !== "undefined") {
       localStorage.setItem("user", JSON.stringify(data.data));
-      if (data.data?.role) {
-        if (data.data?.role === "user") {
-          router.push(`/user/${data?.data?.email}`);
-        } else {
-          router.push("/admin");
-        }
+    }
+    setUser(data.data);
+    if (data.data?.role) {
+      if (data.data?.role === "user") {
+        router.push(`/user/${data?.data?.email}`);
+      } else {
+        router.push("/admin");
       }
     }
   }

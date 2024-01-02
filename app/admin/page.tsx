@@ -13,11 +13,11 @@ function Admin() {
 
   React.useEffect(() => {
     if (userSession === "") router.push("/");
-  }, [userSession]);
+  }, [user.role, userSession]);
 
-  if (user.role !== "admin") {
-    return <p>You do not have permission to view this page.</p>;
-  }
+  // if (user.role !== "admin") {
+  //   return <p>You do not have permission to view this page.</p>;
+  // }
 
   return (
     <div className="container mx-auto p-4 py-6">
@@ -34,7 +34,6 @@ function Admin() {
           <tr>
             <th className="text-left">Name</th>
             <th className="text-left">Email</th>
-            {/* Add more columns as needed */}
             <th className="text-left">Actions</th>
           </tr>
         </thead>

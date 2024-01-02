@@ -110,6 +110,7 @@ const UserDetailsPage: React.FC = () => {
     const data = await res.json();
     setLoading(false);
     if (data.success) {
+      handleGetUserById(id);
       initNotification({
         message: data.message,
         scheme: "success",
@@ -126,23 +127,22 @@ const UserDetailsPage: React.FC = () => {
     });
   }
 
+  async function handleGetUserById(id: any) {
+    // setLoading(true);
+    const res = await fetch(`/api/user/getUserById/?id=${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userSession}`,
+      },
+    });
+
+    const data = await res.json();
+
+    setViewedUser(data.data);
+    return data.data;
+  }
   useEffect(() => {
-    async function handleGetUserById(id: any) {
-      // setLoading(true);
-      const res = await fetch(`/api/user/getUserById/?id=${id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userSession}`,
-        },
-      });
-
-      const data = await res.json();
-
-      setViewedUser(data.data);
-      return data.data;
-    }
-
     handleGetUserById(id);
   }, []);
 
