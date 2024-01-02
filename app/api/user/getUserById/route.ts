@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import prisma from "@/database";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -31,7 +32,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
       success: false,
-      message: "Something went wrong! Please try again",
+      message: e,
     });
   }
 }
