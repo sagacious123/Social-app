@@ -1,13 +1,3 @@
-// import { PrimaryButton } from "@/app/components/Button";
-// import Image from "next/image";
-
-// export default function Home() {
-//   return (
-//     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-
-//     </main>
-//   );
-// }
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -21,7 +11,7 @@ const Home = () => {
   const { user } = useUserContext();
   const router = useRouter();
 
-  const session = userSession ?? window.localStorage.getItem("access_token");
+  const session = userSession ?? localStorage.getItem("access_token");
 
   const handleNavigateToLogin = () => {
     router.push("/login");

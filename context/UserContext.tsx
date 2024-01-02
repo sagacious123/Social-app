@@ -35,11 +35,11 @@ export const UserContextProvider: FC<UserContextProviderProps> = ({
   children,
 }) => {
   const [user, setUser] = React.useState<any>(
-    JSON.parse(window.localStorage.getItem("user")!) || {}
+    JSON.parse(localStorage.getItem("user")!) || {}
   );
   const [allUsers, setAllUsers] = React.useState([]);
   const [token, setToken] = React.useState<any>(
-    window.localStorage.getItem("access_token") || ""
+    localStorage.getItem("access_token") || ""
   );
   const [loading, setLoading] = React.useState(false);
   const { initNotification } = usePageNotificationProvider();

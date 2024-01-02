@@ -28,13 +28,13 @@ export const AuthContextProvider: FC<AuthContextProviderProps> = ({
   children,
 }) => {
   const [userSession, setUserSession] = React.useState<any>(
-    window.localStorage.getItem("access_token") || ""
+    localStorage.getItem("access_token") || ""
   );
   const [loading, setLoading] = React.useState(false);
   const { initNotification } = usePageNotificationProvider();
 
   React.useEffect(() => {
-    setUserSession(window.localStorage.getItem("access_token"));
+    setUserSession(localStorage.getItem("access_token"));
   }, []);
 
   return (

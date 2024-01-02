@@ -43,10 +43,9 @@ function Admin() {
             .filter((u: any) => u.role === "user")
             .map((user: any) => (
               <tr key={user.id}>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                {/* Display more user details */}
-                <td>
+                <td className="py-2">{user.name}</td>
+                <td className="py-2">{user.email}</td>
+                <td className="py-2">
                   <Link
                     className="text-blue-500 hover:underline"
                     href={`/user-details/${user.id}`}

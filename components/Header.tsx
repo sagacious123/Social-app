@@ -17,7 +17,7 @@ const Header: React.FC = () => {
     router.push("/login");
   };
 
-  const session = userSession ?? window.localStorage.getItem("access_token");
+  const session = userSession ?? localStorage.getItem("access_token");
 
   async function handleLogout() {
     setLoading(true);

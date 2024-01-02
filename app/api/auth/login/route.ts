@@ -5,33 +5,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies, headers } from "next/headers";
 import { customInitApp } from "@/utils/firebaseAdminConfig";
 
-// export default async function handler(
-//   req: { body: { email: any; password: any } },
-//   res: {
-//     status: (arg0: number) => {
-//       (): any;
-//       new (): any;
-//       json: { (arg0: { message: string; error?: any }): void; new (): any };
-//     };
-//   }
-// ) {
-//   const { email, password } = req.body;
-
-//   try {
-//     // Firebase user creation
-//     const userCredential = await signInWithEmailAndPassword(
-//       auth,
-//       email,
-//       password
-//     );
-//     const { uid } = userCredential.user;
-
-//     res.status(200).json({ message: "Signed in successfully" });
-//   } catch (error: any) {
-//     res.status(500).json({ message: "Error signing in", error: error.message });
-//   }
-// }
-
 export async function POST(request: NextRequest) {
   //   const authorization = headers().get("Authorization");
 
