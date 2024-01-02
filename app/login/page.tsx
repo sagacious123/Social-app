@@ -95,14 +95,18 @@ const Login = () => {
     //   });
     // }
   }
+  console.log(decodeURIComponent("damilolaj23%40gmail.com"));
 
   async function handleGetUser(email: any) {
-    const res = await fetch(`/api/user/getUserByEmail/?email=${email}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `/api/user/getUserByEmail/?email=${decodeURIComponent(email)}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const data = await res.json();
     if (typeof window !== "undefined") {
