@@ -17,7 +17,7 @@ const CompareCompanies = () => {
   const { allCompanies } = useCompanyContext();
 
   const companies = allCompanies.filter(
-    (company: { user: { role: string } }) => company.user.role === "user"
+    (company: { user: { role: string } }) => company.user?.role === "user"
   );
 
   return (
@@ -25,7 +25,7 @@ const CompareCompanies = () => {
       <h1 className="text-2xl font-bold mb-4">Compare Companies</h1>
       <div className="flex justify-between">
         <div className="w-1/2 p-4 border border-gray-200 rounded">
-          <h2 className="text-lg font-bold mb-2">{companies[0]?.name}</h2>
+          <h2 className="text-lg font-bold mb-2">{companies[0]?.user.name}</h2>
           <table className="w-full">
             <tbody>
               <tr>
@@ -48,7 +48,7 @@ const CompareCompanies = () => {
           </table>
         </div>
         <div className="w-1/2 p-4 border border-gray-200 rounded">
-          <h2 className="text-lg font-bold mb-2">{companies[1]?.name}</h2>
+          <h2 className="text-lg font-bold mb-2">{companies[1]?.user.name}</h2>
           <table className="w-full">
             <tbody>
               <tr>
