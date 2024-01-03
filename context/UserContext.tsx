@@ -1,17 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import React, { FC, ReactNode } from "react";
+import React, { Dispatch, FC, ReactNode, SetStateAction } from "react";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
 import { app } from "@/utils/firebaseConfig";
 import Spinner from "@/components/Spinner";
 import { usePageNotificationProvider } from "@/providers/notificationProvider";
 import { useParams } from "next/navigation";
+import { User } from "@/utils/types";
 
 interface UserContextProps {
-  user: any;
-  setUser: any;
-  allUsers: any;
-  setAllUsers: any;
+  user: User;
+  setUser: Dispatch<SetStateAction<User>>;
+  allUsers: User[];
+  setAllUsers: Dispatch<SetStateAction<never[]>>;
   handleGetUserById: any;
 }
 
@@ -20,9 +22,9 @@ interface UserContextProviderProps {
 }
 
 const initialValues = {
-  user: {},
+  user: {} as User,
   setUser: () => {},
-  allUsers: {},
+  allUsers: {} as User[],
   setAllUsers: () => {},
   handleGetUserById: () => {},
 };
@@ -34,13 +36,13 @@ export const useUserContext = () => React.useContext(UserContext);
 export const UserContextProvider: FC<UserContextProviderProps> = ({
   children,
 }) => {
-  const [user, setUser] = React.useState<any>(
+  const [user, setUser] = React.useState<User>(
     (typeof window !== "undefined" &&
       JSON.parse(localStorage.getItem("user")!)) ||
       {}
   );
   const [allUsers, setAllUsers] = React.useState([]);
-  const [token, setToken] = React.useState<any>(
+  const [token, setToken] = React.useState<string>(
     (typeof window !== "undefined" && localStorage.getItem("access_token")) ||
       ""
   );
@@ -48,7 +50,7 @@ export const UserContextProvider: FC<UserContextProviderProps> = ({
   const { initNotification } = usePageNotificationProvider();
 
   React.useEffect(() => {
-    async function handleGetUserByEmail(email: any) {
+    async function handleGetUserByEmail(email: string) {
       setLoading(true);
       const res = await fetch(`/api/user/getUserByEmail/?email=${email}`, {
         method: "GET",
@@ -75,7 +77,7 @@ export const UserContextProvider: FC<UserContextProviderProps> = ({
   }, [token, user?.email]);
 
   //   React.useEffect(() => {
-  async function handleGetUserById(id: any) {
+  async function handleGetUserById(id: string) {
     setLoading(true);
     const res = await fetch(`/api/user/getUserById/?id=${id}`, {
       method: "GET",

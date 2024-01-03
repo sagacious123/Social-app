@@ -1,25 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 export const dynamic = "force-dynamic";
 
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "@/context/AuthContext";
-import { useParams, useRouter } from "next/navigation";
-import { roles } from "@/utils/auth/login";
+import { useRouter } from "next/navigation";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { PrimaryButton } from "@/components/Button";
 import { usePageNotificationProvider } from "@/providers/notificationProvider";
 import { useUserContext } from "@/context/UserContext";
+
 function Page() {
   const { userSession } = useAuthContext();
   const { user } = useUserContext();
   const router = useRouter();
-  const [userData, setUserData] = useState<any>({});
   const [loading, setLoading] = useState(false);
-  const { email } = useParams();
   const { initNotification } = usePageNotificationProvider();
-
-  const [percentage, setPercentage] = useState<number>(0);
 
   const validationSchema = Yup.object().shape({
     companyName: Yup.string().required("Company name is required"),

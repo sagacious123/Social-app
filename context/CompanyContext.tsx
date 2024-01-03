@@ -1,17 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import React, { FC, ReactNode } from "react";
-import { onAuthStateChanged, getAuth } from "firebase/auth";
-import { app } from "@/utils/firebaseConfig";
+import React, { Dispatch, FC, ReactNode, SetStateAction } from "react";
 import Spinner from "@/components/Spinner";
 import { usePageNotificationProvider } from "@/providers/notificationProvider";
 import { useParams } from "next/navigation";
+import { Company, CompanyWithUser, User } from "@/utils/types";
 
 interface CompanyContextProps {
-  company: any;
-  setCompany: any;
-  allCompanies: any;
-  setAllCompanies: any;
+  company: Company | null;
+  setCompany: Dispatch<Company>;
+  allCompanies: CompanyWithUser[];
+  setAllCompanies: Dispatch<SetStateAction<never[]>>;
 }
 
 interface CompanyContextProviderProps {
@@ -19,9 +19,9 @@ interface CompanyContextProviderProps {
 }
 
 const initialValues = {
-  company: {},
+  company: {} as Company,
   setCompany: () => {},
-  allCompanies: {},
+  allCompanies: [] as CompanyWithUser[],
   setAllCompanies: () => {},
 };
 
@@ -34,14 +34,14 @@ export const CompanyContextProvider: FC<CompanyContextProviderProps> = ({
   children,
 }) => {
   const { id } = useParams();
-  const [user, setUser] = React.useState<any>(
+  const [user, setUser] = React.useState<User>(
     (typeof window !== "undefined" &&
       JSON.parse(localStorage.getItem("user")!)) ||
       {}
   );
-  const [company, setCompany] = React.useState<any>({});
+  const [company, setCompany] = React.useState<Company>({} as Company);
   const [allCompanies, setAllCompanies] = React.useState([]);
-  const [token, setToken] = React.useState<any>(
+  const [token, setToken] = React.useState<string | null>(
     (typeof window !== "undefined" && localStorage.getItem("access_token")) ||
       ""
   );
@@ -49,7 +49,7 @@ export const CompanyContextProvider: FC<CompanyContextProviderProps> = ({
   const { initNotification } = usePageNotificationProvider();
 
   React.useEffect(() => {
-    async function handleGetCompany(id: any) {
+    async function handleGetCompany(id: string) {
       setLoading(true);
       const res = await fetch(`/api/company/getSingleCompany?companyID=${id}`, {
         method: "GET",

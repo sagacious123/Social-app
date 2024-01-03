@@ -1,11 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React from "react";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { roles } from "@/utils/auth/login";
 import { useUserContext } from "@/context/UserContext";
 import Link from "next/link";
 import { PrimaryButton } from "@/components/Button";
+import { User } from "@/utils/types";
 function Admin() {
   const { userSession } = useAuthContext();
   const { user, allUsers } = useUserContext();
@@ -44,8 +45,8 @@ function Admin() {
         </thead>
         <tbody>
           {allUsers
-            .filter((u: any) => u.role === "user")
-            .map((user: any) => (
+            .filter((u: User) => u.role === "user")
+            .map((user: User) => (
               <tr key={user.id}>
                 <td className="py-2">{user.name}</td>
                 <td className="py-2">{user.email}</td>

@@ -1,7 +1,5 @@
 "use client";
-import { useAuthContext } from "@/context/AuthContext";
 import { useCompanyContext } from "@/context/CompanyContext";
-import { useUserContext } from "@/context/UserContext";
 import React from "react";
 
 interface Company {
@@ -21,7 +19,7 @@ const CompareCompanies = () => {
   );
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 pt-8">
       <h1 className="text-2xl font-bold mb-4">Compare Companies</h1>
       <div className="flex justify-between">
         <div className="w-1/2 p-4 border border-gray-200 rounded">

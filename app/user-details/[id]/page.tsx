@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-// import { getUserDetails } from "../../services/userService"; // Function to fetch user details from the database
 import { useParams, useRouter } from "next/navigation";
 import { useUserContext } from "@/context/UserContext";
 import { useAuthContext } from "@/context/AuthContext";
@@ -17,7 +17,7 @@ import {
 import { usePageNotificationProvider } from "@/providers/notificationProvider";
 import Spinner from "@/components/Spinner";
 import Link from "next/link";
-// import UserIcon from "../../../public/user.svg";
+import { Company, User } from "@/utils/types";
 
 const stroage = getStorage(app, "gs://social-app-60d6d.appspot.com");
 
@@ -28,7 +28,7 @@ function createUniqueFileName(fileName: string) {
   return `${fileName}-${timeStamp}-${randomString}`;
 }
 
-async function handleImageSaveToFireBase(file: any) {
+async function handleImageSaveToFireBase(file: File) {
   const extractUniqueFileName = createUniqueFileName(file?.name);
   const stroageRef = ref(stroage, `user/${extractUniqueFileName}`);
   const uploadImg = uploadBytesResumable(stroageRef, file);
@@ -54,16 +54,11 @@ const UserDetailsPage: React.FC = () => {
   const { userSession } = useAuthContext();
   const { user } = useUserContext();
   const { initNotification } = usePageNotificationProvider();
-  const [viewedUser, setViewedUser] = useState<any>({});
+  const [viewedUser, setViewedUser] = useState<User>();
   const [imageLoading, setImageLoading] = useState<boolean>(false);
-  const [formData, setFormData] = useState<any>({});
   const [loading, setLoading] = useState(false);
   const profileImage =
-    viewedUser.userImage ?? "https://freesvg.org/img/abstract-user-flat-1.png";
-
-  //   const user = useMemo(() => {
-  //     return handleGetUserById(id);
-  //   }, []);
+    viewedUser?.userImage ?? "https://freesvg.org/img/abstract-user-flat-1.png";
 
   async function handleBlogImageChange(
     event: React.ChangeEvent<HTMLInputElement>
@@ -77,23 +72,23 @@ const UserDetailsPage: React.FC = () => {
     if (saveImageToFirebase !== "") {
       setImageLoading(false);
       handleSaveCompany({
-        name: viewedUser.name,
-        email: viewedUser.email,
+        name: viewedUser?.name,
+        email: viewedUser?.email,
         userImage: saveImageToFirebase,
       });
     }
   }
 
   async function handleSaveCompany(payload: {
-    name?: any;
-    email?: any;
-    userImage?: any;
-    success?: any;
-    message?: any;
+    name?: string;
+    email?: string;
+    userImage?: null | string;
+    success?: boolean;
+    message?: string;
   }) {
     setLoading(true);
 
-    const res = await fetch(`/api/user/updateUser?id=${viewedUser.id}`, {
+    const res = await fetch(`/api/user/updateUser?id=${viewedUser?.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -101,9 +96,6 @@ const UserDetailsPage: React.FC = () => {
       },
       body: JSON.stringify({
         ...payload,
-        // userId: 1,
-        // userimage: session?.user?.image,
-        // comments: [],
       }),
     });
 
@@ -115,9 +107,6 @@ const UserDetailsPage: React.FC = () => {
         message: data.message,
         scheme: "success",
       });
-      setTimeout(() => {
-        setFormData({});
-      }, 2000);
       return;
     }
 
@@ -127,8 +116,8 @@ const UserDetailsPage: React.FC = () => {
     });
   }
 
-  async function handleGetUserById(id: any) {
-    // setLoading(true);
+  async function handleGetUserById(id: string | string[]) {
+    setLoading(true);
     const res = await fetch(`/api/user/getUserById/?id=${id}`, {
       method: "GET",
       headers: {
@@ -138,6 +127,7 @@ const UserDetailsPage: React.FC = () => {
     });
 
     const data = await res.json();
+    setLoading(false);
 
     setViewedUser(data.data);
     return data.data;
@@ -168,7 +158,7 @@ const UserDetailsPage: React.FC = () => {
           <div className="h-20 w-20 rounded-full">
             <Image
               src={profileImage}
-              alt={viewedUser?.Name ?? "Avatar item"}
+              alt={viewedUser?.name ?? "Avatar item"}
               className="img-fluid avatar rounded-full h-full w-full"
               width={80}
               height={80}
@@ -190,9 +180,9 @@ const UserDetailsPage: React.FC = () => {
           </label>
         </div>
         <div>
-          <h1 className="text-2xl font-bold">{`${viewedUser.name}`}</h1>
+          <h1 className="text-2xl font-bold">{`${viewedUser?.name}`}</h1>
           <p className="mb-0 text-grey-500 text-capitalize fs-15">
-            {viewedUser.email}
+            {viewedUser?.email}
           </p>
           <p className="mb-0 text-grey-500 text-capitalize fs-14">
             {viewedUser?.role}
@@ -202,7 +192,7 @@ const UserDetailsPage: React.FC = () => {
 
       <h2 className="text-xl mt-5 mb-3 font-semibold">Companies</h2>
       <ul>
-        {viewedUser.companies?.map((company: any) => (
+        {viewedUser?.companies?.map((company: Company) => (
           <li
             key={company.id}
             className="p-5 shadow-md rounded-md bg-white mb-5"

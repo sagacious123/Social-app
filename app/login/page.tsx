@@ -16,9 +16,8 @@ import { useUserContext } from "@/context/UserContext";
 const Login = () => {
   const router = useRouter();
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
   const { initNotification } = usePageNotificationProvider();
-  const { setUserSession } = useAuthContext();
+  const { setUserSession, loading, setLoading } = useAuthContext();
   const { setUser } = useUserContext();
 
   const formik = useFormik({
@@ -97,7 +96,8 @@ const Login = () => {
     // }
   }
 
-  async function handleGetUser(email: any) {
+  async function handleGetUser(email: string) {
+    setLoading(true);
     const res = await fetch(
       `/api/user/getUserByEmail/?email=${decodeURIComponent(email)}`,
       {
@@ -109,6 +109,7 @@ const Login = () => {
     );
 
     const data = await res.json();
+    setLoading(false);
     if (typeof window !== "undefined") {
       localStorage.setItem("user", JSON.stringify(data.data));
     }
