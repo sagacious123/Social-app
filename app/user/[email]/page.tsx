@@ -63,7 +63,6 @@ function Page() {
     handlePercentageCalculation();
   }, [values.numUsers, values.numProducts]);
 
-  console.log(user.id);
 
   async function handleSaveCompany() {
     setLoading(true);

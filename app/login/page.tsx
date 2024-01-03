@@ -96,7 +96,6 @@ const Login = () => {
     //   });
     // }
   }
-  console.log(decodeURIComponent("damilolaj23%40gmail.com"));
 
   async function handleGetUser(email: any) {
     const res = await fetch(

@@ -16,8 +16,6 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    console.log(userDetails);
-
     if (userDetails) {
       return NextResponse.json({
         success: true,

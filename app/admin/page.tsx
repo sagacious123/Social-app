@@ -19,6 +19,10 @@ function Admin() {
   //   return <p>You do not have permission to view this page.</p>;
   // }
 
+  const handleCompare = () => {
+    router.push("/compare");
+  };
+
   return (
     <div className="container mx-auto p-4 py-6">
       <div className="flex justify-between align-center mb-5">
@@ -27,6 +31,7 @@ function Admin() {
           value="Compare"
           type="button"
           className="primary-btn btn-sm"
+          onClick={handleCompare}
         />
       </div>
       <table className="min-w-full">
