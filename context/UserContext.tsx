@@ -10,8 +10,8 @@ import { useParams } from "next/navigation";
 import { User } from "@/utils/types";
 
 interface UserContextProps {
-  user: User;
-  setUser: Dispatch<SetStateAction<User>>;
+  user: User | null;
+  setUser: Dispatch<SetStateAction<User | null>>;
   allUsers: User[];
   setAllUsers: Dispatch<SetStateAction<never[]>>;
   handleGetUserById: any;
@@ -36,11 +36,12 @@ export const useUserContext = () => React.useContext(UserContext);
 export const UserContextProvider: FC<UserContextProviderProps> = ({
   children,
 }) => {
-  const [user, setUser] = React.useState<User>(
-    (typeof window !== "undefined" &&
-      JSON.parse(localStorage.getItem("user")!)) ||
-      {}
+  const [user, setUser] = React.useState<User | null>(
+    JSON.parse(
+      typeof window !== "undefined" ? localStorage.getItem("user")! : ""
+    ) || {}
   );
+
   const [allUsers, setAllUsers] = React.useState([]);
   const [token, setToken] = React.useState<string>(
     (typeof window !== "undefined" && localStorage.getItem("access_token")) ||
@@ -48,6 +49,14 @@ export const UserContextProvider: FC<UserContextProviderProps> = ({
   );
   const [loading, setLoading] = React.useState(false);
   const { initNotification } = usePageNotificationProvider();
+
+  React.useEffect(() => {
+    setUser(
+      JSON.parse(
+        typeof window !== "undefined" ? localStorage.getItem("user")! : ""
+      )
+    );
+  }, []);
 
   React.useEffect(() => {
     async function handleGetUserByEmail(email: string) {
@@ -115,21 +124,22 @@ export const UserContextProvider: FC<UserContextProviderProps> = ({
       });
 
       const data = await res.json();
-      setLoading(false);
       if (!data.success) {
+        setLoading(false);
         initNotification({
           message: data.message,
           scheme: "error",
         });
         return;
       }
+      setLoading(false);
       setAllUsers(data.data);
     }
 
-    if (user.role === "admin") {
+    if (user?.role === "admin") {
       handleGetUsers();
     }
-  }, [token, user.role]);
+  }, [token, user?.role]);
 
   return (
     <UserContext.Provider

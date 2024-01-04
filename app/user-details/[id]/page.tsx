@@ -139,8 +139,9 @@ const UserDetailsPage: React.FC = () => {
   useEffect(() => {
     if (userSession === "") router.push("/");
   }, [userSession]);
+  console.log(user);
 
-  if (user.role !== "admin") {
+  if (user?.role !== "admin") {
     return <p>You do not have permission to view this page.</p>;
   }
 

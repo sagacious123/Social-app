@@ -14,11 +14,11 @@ function Admin() {
 
   React.useEffect(() => {
     if (userSession === "") router.push("/");
-  }, [user.role, userSession]);
+  }, [user?.role, userSession]);
 
-  // if (user.role !== "admin") {
-  //   return <p>You do not have permission to view this page.</p>;
-  // }
+  if (user?.role !== "admin") {
+    return <p>You do not have permission to view this page.</p>;
+  }
 
   const handleCompare = () => {
     router.push("/compare");

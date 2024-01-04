@@ -26,16 +26,16 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <AuthContextProvider>
-            <UserContextProvider>
+          <UserContextProvider>
+            <AuthContextProvider>
               <CompanyContextProvider>
                 <PageNotificationProvider>
                   <Header />
                   {children}
                 </PageNotificationProvider>
               </CompanyContextProvider>
-            </UserContextProvider>
-          </AuthContextProvider>
+            </AuthContextProvider>
+          </UserContextProvider>
         </Providers>
       </body>
     </html>

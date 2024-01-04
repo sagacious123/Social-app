@@ -1,5 +1,7 @@
 "use client";
+import { useAuthContext } from "@/context/AuthContext";
 import { useCompanyContext } from "@/context/CompanyContext";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 interface Company {
@@ -11,12 +13,16 @@ interface Company {
 }
 
 const CompareCompanies = () => {
-  //   const { userSession } = useAuthContext();
+  const { userSession } = useAuthContext();
   const { allCompanies } = useCompanyContext();
+  const router = useRouter();
 
   const companies = allCompanies.filter(
     (company: { user: { role: string } }) => company.user?.role === "user"
   );
+  React.useEffect(() => {
+    if (userSession === "") router.push("/");
+  }, [userSession]);
 
   return (
     <div className="container mx-auto p-4 pt-8">

@@ -60,7 +60,6 @@ function Page() {
     handlePercentageCalculation();
   }, [values.numUsers, values.numProducts]);
 
-
   async function handleSaveCompany() {
     setLoading(true);
 
@@ -72,7 +71,7 @@ function Page() {
       },
       body: JSON.stringify({
         ...values,
-        userId: user.id,
+        userId: user?.id,
         // userId: 1,
         // userimage: session?.user?.image,
         // comments: [],

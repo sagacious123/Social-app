@@ -35,9 +35,9 @@ export const CompanyContextProvider: FC<CompanyContextProviderProps> = ({
 }) => {
   const { id } = useParams();
   const [user, setUser] = React.useState<User>(
-    (typeof window !== "undefined" &&
-      JSON.parse(localStorage.getItem("user")!)) ||
-      {}
+    JSON.parse(
+      typeof window !== "undefined" ? localStorage.getItem("user")! : ""
+    ) || {}
   );
   const [company, setCompany] = React.useState<Company>({} as Company);
   const [allCompanies, setAllCompanies] = React.useState([]);
@@ -97,10 +97,10 @@ export const CompanyContextProvider: FC<CompanyContextProviderProps> = ({
       setAllCompanies(data.data);
     }
 
-    if (user.role === "admin") {
+    if (user?.role === "admin") {
       handleGetCompanies();
     }
-  }, [token, user.role]);
+  }, [token, user?.role]);
 
   return (
     <CompanyContext.Provider

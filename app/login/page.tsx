@@ -109,11 +109,11 @@ const Login = () => {
     );
 
     const data = await res.json();
-    setLoading(false);
     if (typeof window !== "undefined") {
       localStorage.setItem("user", JSON.stringify(data.data));
     }
     if (data.success) {
+      setLoading(false);
       setUser(data.data);
       if (data.data?.role) {
         if (data.data?.role === "user") {
@@ -122,7 +122,9 @@ const Login = () => {
           router.push("/admin");
         }
       }
+      return;
     }
+    setLoading(false);
   }
 
   return (

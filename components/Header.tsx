@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useAuthContext } from "@/context/AuthContext";
 import { usePageNotificationProvider } from "@/providers/notificationProvider";
@@ -14,9 +14,10 @@ const Header: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const { initNotification } = usePageNotificationProvider();
   const { userSession, setUserSession } = useAuthContext();
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
   const [session, setSession] = useState<string | boolean | null>("");
   const router = useRouter();
+
   const profileImage =
     user?.userImage ?? "https://freesvg.org/img/abstract-user-flat-1.png";
   const handleNavigateToLogin = () => {
@@ -38,6 +39,7 @@ const Header: React.FC = () => {
     setLoading(true);
 
     setUserSession("");
+    setUser(null);
     if (typeof window !== "undefined") {
       localStorage.clear();
     }
@@ -58,7 +60,7 @@ const Header: React.FC = () => {
                 className="primary-btn btn-sm"
               />
               <div className="flex items-center justify-center gap-3">
-                <div className="h-14 w-14 rounded-full">
+                <div className="h-11 w-11 rounded-full">
                   <Image
                     src={profileImage}
                     alt={user?.name ?? "Avatar item"}
